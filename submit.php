@@ -21,8 +21,16 @@ $conn = mysqli_connect('localhost','root','','face_recognition');
         if($face != "Unknown"){
             $query = "UPDATE student set status=1 where id= $face";
             $res = mysqli_query($conn,$query);
+            // echo $query;
             if($res){
-                echo "$face have Attended";
+                $que= "SELECT * from student where id=$face";
+                $r = mysqli_query($conn, $que);
+                $row = mysqli_fetch_assoc($r);
+                echo "<p>";
+                echo $row['roll_no'] ;
+                echo   " has attended.";
+                echo "<br>";
+                echo "</p>";
             }
         }
         
