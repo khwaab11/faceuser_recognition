@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    {% load static %}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Add Page - Slam Book</title>
+    <link rel="stylesheet" href="{% static 'assets/bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,400i,700,700i,600,600i">
+    <link rel="stylesheet" href="{% static 'assets/fonts/simple-line-icons.min.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.10.0/baguetteBox.min.css">
+    <link rel="stylesheet" href="{% static 'assets/css/smoothproducts.css' %}">
+</head>
+
+<body>
+    <nav class="navbar navbar-light navbar-expand-lg fixed-top bg-white clean-navbar">
+        <div class="container"><a class="navbar-brand logo" href="#">Slam Book</a>
+            <div class="collapse navbar-collapse" id="navcol-1">
+            </div>
+        </div>
+    </nav>
+    <main class="page contact-us-page">
+        <section class="clean-block clean-form dark">
+            <div class="container">
+                <div class="block-heading">
+                    <h2 class="text-info">How would You Like to be Remeber To Him</h2>
+                    <p></p>
+                </div>
+                <form  method='POST' enctype="multipart/form-data" action="/save">
+                    {% csrf_token %}
+                    <input type="text" style="display: none;" value="{{owner}}" name="owner">
+                    <input type="text" style="display: none;" value="{{id1}}" name="id1">
+                    <div class="form-group"><label>Name</label><input required="" name="name" placeholder="Your Good Name" class="form-control" id="name"
+                            type="text"></div>
+                    <div class="form-group"><label>Nick Name</label><input required="" id="nick" placeholder="Your name called by others"
+                            class="form-control" name="nick" type="text"></div>
+                    <div class="form-group"><label>Picture</label><input required="" name="picture" id="picture" placeholder="Your Smiling Picture"
+                            class="form-control picture" type="file" accept="image/*"></div>
+                    <div class="form-group"><label>Email</label><input required="" name="email" id="email" placeholder="abc@xyz.com" class="form-control"
+                            type="email"></div>
+                    <div class="form-group"><label>Birth Day</label><input required="" name="bday" id="bday" placeholder="dd/mm/yyyy" class="form-control"
+                            type="text"></div>
+                    <div class="form-group"><label>Phone Number</label><input required="" name="phone_no" id="phone_no" placeholder="+91 xxxxx xxxxx" class="form-control"
+                            type="text"></div>
+                    <div class="form-group"><label>Motto/Your Googly Thoughts</label><input
+                            placeholder="A day without Laughter is a day wasted" required="" class="form-control" type="text" id="motto" name="motto" ></div>
+                    <div class="form-group"><label>Hoobies</label><input required="" name="hoobies" id="hoobies" placeholder="Any of Your Interest's"
+                            class="form-control" type="text"></div>
+                    <div class="form-group"><label>Your Dream</label><input required="" name="dream" id="dream" 
+                            placeholder="Dreams are those that doesnt let you sleep .." class="form-control"
+                            type="text"></div>
+                    <div class="form-group"><label>My Name In Your Phone ?</label><input required="" name="phone_name" id="phone_name" placeholder="You saved me as"
+                            class="form-control" type="text"></div>
+                    <div class="form-group"><label>Relation between you and me?</label><input
+                            placeholder="What i am to you" required="" name="relation" id="relation" class="form-control" type="text"></div>
+                    <div class="form-group"><label>Did you ever have a crush on your teacher when you were a
+                            kid?</label><input required="" name="crush" id="crush" placeholder="Yes/No" class="form-control" type="text"></div>
+                    <div class="form-group"><label>Who is your celebrity crush?</label><input name="cel_crush" id="cel_crush" 
+                            placeholder="E.g:Katreena , Salmaan Khan" required="" class="form-control" type="text"></div>
+                    <div class="form-group"><label>Something You like in me______?</label><input name="like" id="like"
+                            placeholder="What you like in me ?" required="" class="form-control" type="text"></div>
+                    <div class="form-group"><label>Something You hate in me______?</label><input name="hate" id="hate"
+                            placeholder="What you dont like in me ?" required="" class="form-control" type="text"></div>
+                    <div class="form-group"><label>A nick name for me?</label><input required="" name="nice_me" id="nick_me"
+                            placeholder="A Name you would like to suggest me" class="form-control" type="text"></div>
+                    <div class="form-group"><label>Give your best past moments that you can’t forget?</label><input
+                            placeholder="Refreshing Moments..." required="" name="memory" id="moments" class="form-control" type="text"></div>
+                    <div class="form-group"><label>A Message For Me .. </label><textarea required="" name="message" id="message"
+                            class="form-control"></textarea></div>
+                    <div class="form-group"><button class="btn btn-primary btn-block" type="submit">Send</button></div>
+                </form>
+            </div>
+        </section>
+    </main>
+</body>
+    <script src="{% static 'assets/js/jquery.min.js' %}"></script>
+    <script src="{% static 'assets/bootstrap/js/bootstrap.min.js' %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.10.0/baguetteBox.min.js"></script>
+    <script src="{% static 'assets/js/smoothproducts.min.js' %}"></script>
+    <script src="{% static 'assets/js/theme.js' %}"></script>
+    <script src="{% static 'assets/js/profile.js' %}"></script>
+
+</html>

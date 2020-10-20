@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    {% load static %}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>{{ name }} - Slam Book</title>
+    <link rel="stylesheet" href="{% static 'assets/bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,400i,700,700i,600,600i">
+    <link rel="stylesheet" href="{% static 'assets/fonts/simple-line-icons.min.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.10.0/baguetteBox.min.css">
+    <link rel="stylesheet" href="{% static 'assets/css/smoothproducts.css' %}">
+</head>
+
+<body>
+
+    <nav class="navbar navbar-light navbar-expand-lg fixed-top bg-white clean-navbar">
+        <div class="container"><a class="navbar-brand logo" href="#">Slam Book</a><button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse"
+                id="navcol-1">
+                <ul class="nav navbar-nav ml-auto">
+                    <li class="nav-item" role="presentation"><a class="nav-link active" href="#"> Welcome {{ name }}</a></li>
+                    <li class="nav-item" role="presentation"><a target="_blank" class="nav-link" href="/contact-us.html">Contact Us</a></li>
+                    <li class="nav-item" role="presentation"><a target="_blank" class="nav-link" href="/change_pass">Change Password</a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link" style="cursor: pointer;" data-toggle="modal" data-target="#exampleModalCenter" >Add Friends</a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link" href="/logout">Logout</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Add Friends </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Share this link with your Friends
+        www.slambook.social/add/{{ name }}/{{ unique }}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <a href="https://wa.me/?text=Can%20you%20please%20fill%20your%20details%20in%20my%20Slam%20Book%20page.?%20I%20am%20collecting%20memories%20of%20my%20friends.%20Let%27s%20see%20who%20are%20in%20my%20list.This%20link%20will%20redirect%20you%20to%20there%20%20https%3A%2F%2Fwww.slambook.social/add/{{ name }}/{{ unique }}%2F"><button type="button" class="btn btn-primary">Save using Whats App</button></a>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <main class="page service-page">
+        <section class="clean-block clean-services dark">
+            <div class="container">
+                <div class="block-heading">
+                    <br>
+                    <h2 class="text-info">Your's Friend's List </h2>
+                    <p>In order to add more friends click on Add Friends in the Navigation Bar</p>
+                </div>
+                {% for message in messages %}
+  <div class="alert alert-{{ message.tags }} mt-10 alert-dismissible fade show" role="alert">
+    <strong>Message: </strong> {{ message }}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  {% endfor %}
+                {% load static %}
+                {% load to_and %}
+                
+                <div class="row">
+                    {% for friend in friends %}
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card"><img class="card-img-top w-100 d-block" style="max-height: 184px" src="/media/{{friend.picture}}">
+                            <div class="card-body">
+                                <h4 class="card-title">{{friend.nick}}</h4>
+                                <p class="card-text">{{friend.memory}}</p>
+                            </div>
+                            <div><button class="btn btn-outline-primary btn-sm" data-toggle="modal" data-target="#{{ friend.name|to_and }}" type="button">View Him</button></div>
+                        </div>
+                    </div>
+                    <!-- The Modal -->
+  <div class="modal fade" id="{{ friend.name|to_and }}">
+    <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+      
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">{{ friend.name }}</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        
+        <!-- Modal body -->
+        <div class="modal-body">
+          <div class="block-content">
+                    <div class="product-info">
+                        <div class="col">
+                                <div class="gallery">
+                                    <a download href="/media/{{friend.picture}}"><img height="100%" width="100%" class="img-fluid d-block mx-auto" src="/media/{{friend.picture}}"></a>
+                                </div>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="col-md-6">
+                                <div class="info">
+                                    <h5>Name : {{ friend.name }}</h5>
+                                    <br>
+                                    <div class="price">
+                                        <h5>Nick Name : {{ friend.nick }}</h5>
+                                    </div>
+                                    <br>
+                                    <div class="summary">
+                                        <h5>Memory : <br> {{ friend.memory }}</h5>
+                                    </div>
+                                </div>
+                    </div>
+                    <div class="product-info">
+                        <div>
+                            <ul class="nav nav-tabs" id="myTab">
+                                <li class="nav-item"><a class="nav-link active" role="tab" data-toggle="tab" id="description-tab" href="#description{{ friend.name|to_and }}">For Someone Special</a></li>
+                                <li class="nav-item"><a class="nav-link" role="tab" data-toggle="tab" id="specifications-tabs" href="#specifications{{ friend.name|to_and }}">About Him</a></li>
+                            </ul>
+                            <br>
+                            <br>
+                            <div class="tab-content" id="myTabContent">
+                                <div class="tab-pane active fade show description" role="tabpanel" id="description{{ friend.name|to_and }}">
+                                    <p>Hi {{friend.nick_me}} , Thank you for being with me as {{ friend.relation }} and will still continue as it is for the rest of my life. I like your {{ friend.like_in_me }} but i hate your {{ friend.hate_in_me }} , I actually dont know what and why i am talking these but one thing i will never forget in my life and that is {{ friend.memory }} and at last i would like to give u a message  that is {{ friend.message }}</p>
+                                </div>
+                                <div class="tab-pane fade show specifications" role="tabpanel" id="specifications{{ friend.name|to_and }}">
+                                    <div class="table-responsive table-bordered">
+                                        <table class="table table-bordered">
+                                            <tbody>
+                                                <tr>
+                                                    <td class="stat">Name</td>
+                                                    <td>{{ friend.name }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="stat">Nick Name</td>
+                                                    <td> {{ friend.nick }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="stat">Email</td>
+                                                    <td>{{ friend.email }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="stat">Birth Day</td>
+                                                    <td>{{ friend.bday }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="stat">Phone No</td>
+                                                    <td>{{ friend.phone_no }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="stat">Hoobies</td>
+                                                    <td>{{ friend.hoobies }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="stat">Dream</td>
+                                                    <td>{{ friend.dream }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="stat">Motto</td>
+                                                    <td>{{ friend.motto }}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </div>
+        
+        <!-- Modal footer -->
+        <div class="modal-footer">
+            <a href="/delete/{{ name }}/{{ friend.name }}" ><button type="button" class="btn btn-danger">Delete</button></a>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+           
+        </div>
+      </div>
+    </div>
+  </div>
+                {% endfor %}
+<div class="col-md-6 col-lg-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">To Add Friends Click The Link Below</h4>
+                            </div>
+                            <div><button class="btn btn-outline-primary btn-sm" data-toggle="modal" data-target="#exampleModalCenter" type="button">Add Friends</button></div>
+                        </div>
+                    </div>
+                    <!-- <div class="col-md-6 col-lg-4">
+                        <div class="card"><img class="card-img-top w-100 d-block" src="{% static 'assets/img/scenery/image6.jpg' %}">
+                            <div class="card-body">
+                                <h4 class="card-title">Lorem Ipsum</h4>
+                                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc quam urna, dignissim nec auctor in.</p>
+                            </div>
+                            <div><button class="btn btn-outline-primary btn-sm" type="button">Learn More</button></div>
+                        </div>
+                    </div> -->
+              <!--       <div class="col-md-6 col-lg-4">
+                        <div class="card"><img class="card-img-top w-100 d-block" src="{% static 'assets/img/scenery/image1.jpg' %}">
+                            <div class="card-body">
+                                <h4 class="card-title">Lorem Ipsum</h4>
+                                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc quam urna, dignissim nec auctor in.</p>
+                            </div>
+                            <div><button class="btn btn-outline-primary btn-sm" type="button">Learn More</button></div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card"><img class="card-img-top w-100 d-block" src="{% static 'assets/img/scenery/image1.jpg' %}">
+                            <div class="card-body">
+                                <h4 class="card-title">Lorem Ipsum</h4>
+                                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc quam urna, dignissim nec auctor in.</p>
+                            </div>
+                            <div><button class="btn btn-outline-primary btn-sm" type="button">Learn More</button></div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card"><img class="card-img-top w-100 d-block" src="{% static 'assets/img/scenery/image5.jpg' %}">
+                            <div class="card-body">
+                                <h4 class="card-title">Lorem Ipsum</h4>
+                                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc quam urna, dignissim nec auctor in.</p>
+                            </div>
+                            <div><button class="btn btn-outline-primary btn-sm" type="button">Learn More</button></div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card"><img class="card-img-top w-100 d-block" src="{% static 'assets/img/scenery/image6.jpg' %}">
+                            <div class="card-body">
+                                <h4 class="card-title">Lorem Ipsum</h4>
+                                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc quam urna, dignissim nec auctor in.</p>
+                            </div>
+                            <div><button class="btn btn-outline-primary btn-sm" type="button">Learn More</button></div>
+                        </div>
+                    </div> -->
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer class="page-footer dark">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-3">
+                    <h5>Get started</h5>
+                    <ul>
+                        <li><a href="/index.html">Home</a></li>
+                        <li><a href="/registration.html">Sign up</a></li>
+                    </ul>
+                </div>
+                <div class="col-sm-3">
+                    <h5>About us</h5>
+                    <ul>
+                        <li><a href="about-us.html">Company Information</a></li>
+                        <li><a href="contact-us.html">Contact us</a></li>
+                    </ul>
+                </div>
+                <div class="col-sm-3">
+                    <h5>Support</h5>
+                    <ul>
+                        <li><a href="contact-us.html">Help desk</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer-copyright">
+            <p>© 2020 Copyright Slam Book</p>
+        </div>
+    </footer>
+    <script src="{% static 'assets/js/jquery.min.js' %}"></script>
+    <script src="{% static 'assets/bootstrap/js/bootstrap.min.js' %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.10.0/baguetteBox.min.js"></script>
+    <script src="{% static 'assets/js/smoothproducts.min.js' %}"></script>
+    <script src="{% static 'assets/js/theme.js' %}"></script>
+</body>
+
+</html>
